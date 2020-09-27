@@ -2,41 +2,6 @@
 val digitalHouseManager = DigitalHouseManager();
 fun main() {
     menu();
-//    //cadastra o primeiro curso
-//    digitalHouseManager.registrarCurso("Curso de python",12,10)
-//    //tenta cadastrar o segundo curso igual o primeiro
-//    digitalHouseManager.registrarCurso("Curso de python",12,10)
-//    //lista os cursos
-//    println(digitalHouseManager.cursos)
-//    //tenta excluir um curso que não existe
-//    digitalHouseManager.excluirCurso(20);
-//    //remove o curso cadastrado anteriormente
-//    digitalHouseManager.excluirCurso(12);
-//    //lista os cursos
-//    println(digitalHouseManager.cursos)
-//
-//    //registra professsor adjunto
-//    digitalHouseManager.registrarProfessorAdjunto("Leandro freire","da Silva",10,7)
-//    //registra professsor titular com o mesmo cod
-//    digitalHouseManager.registrarProfessorTitular("Leandro freire","da Silva",10,"azure")
-//    //registra professsor titular
-//    digitalHouseManager.registrarProfessorTitular("Leandro freire","da Silva",11,"azure")
-//
-//    println(digitalHouseManager.professores)
-//
-//    digitalHouseManager.excluirProfessor(9)
-//
-//    digitalHouseManager.excluirProfessor(10)
-//
-//    println("PROFESSORES: "+ digitalHouseManager.professores)
-//
-//    digitalHouseManager.registrarAluno("jow jow","now",10)
-//    digitalHouseManager.registrarAluno("jow jow","now",11)
-//    digitalHouseManager.registrarCurso("Curso de python",12,1)
-//    digitalHouseManager.matricularAluno(10, 12);
-//    digitalHouseManager.matricularAluno(11, 12);
-//    println(digitalHouseManager.cursos)
-
 }
 fun menu() {
     println("""
@@ -212,12 +177,12 @@ fun fluxoListarCursos(){
 }
 fun listarAlunos() {
     digitalHouseManager.alunos.forEach {
-        println(it)
+        println("${it.key} -> ${it.value.nome}")
     }
 }
 fun listarCursos(){
     digitalHouseManager.cursos.forEach {
-        println(it)
+        println("${it.key} -> ${it.value.nome}" )
     }
 }
 
