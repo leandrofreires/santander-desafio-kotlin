@@ -5,4 +5,8 @@ open class Professor(
         override var nome: String,
         override var sobrenome: String,
         var tempoDeCasa: Int = 0
-):Usuario
+):Usuario {
+    override fun toString(): String {
+        return "$nome $sobrenome"
+    }
+}

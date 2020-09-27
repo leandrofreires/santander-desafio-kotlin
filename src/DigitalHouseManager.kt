@@ -72,4 +72,24 @@ class DigitalHouseManager(
             println("NÃO FOI POSSIVEL CADASTRAR O PROFESSOR POIS: ${e.localizedMessage}")
         }
     }
+
+    fun excluirProfessor(codigoProfessor: Int) {
+        try {
+            if(!professores.containsKey(codigoProfessor)){
+                throw Exception("O PROFESSOR $codigoProfessor NÃO ESTA CADASTRADO!")
+            }
+            val prof = professores.get(codigoProfessor)
+            professores.remove(codigoProfessor)
+            println("O PROFESSOR ${prof?.nome + ' ' + prof?.sobrenome} FOI REMOVIDO DO SISTEMA")
+        }catch (e: Exception){
+            println("NÃO FOI POSSIVEL REMOVER O PROFESSOR POIS: ${e.localizedMessage}")
+        }
+    }
+    fun registrarAluno(nome: String , sobrenome: String , codigoAluno: Int) {
+        try {
+
+        }catch (e: Exception) {
+
+        }
+    }
 }

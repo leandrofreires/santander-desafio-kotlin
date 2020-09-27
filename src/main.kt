@@ -52,4 +52,13 @@ fun main() {
     digitalHouseManager.registrarProfessorTitular("Leandro freire","da Silva",10,"azure")
     //registra professsor titular
     digitalHouseManager.registrarProfessorTitular("Leandro freire","da Silva",11,"azure")
+
+    println(digitalHouseManager.professores)
+
+    digitalHouseManager.excluirProfessor(9)
+
+    digitalHouseManager.excluirProfessor(10)
+
+    println(digitalHouseManager.professores)
+
 }
