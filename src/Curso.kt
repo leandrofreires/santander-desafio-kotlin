@@ -7,11 +7,17 @@ class Curso(
         var alunos: MutableMap<Int, Aluno> = mutableMapOf<Int, Aluno>()
 ) {
     fun adicionarUmAluno(aluno: Aluno): Boolean {
-        if (alunos.size < qtMaxAluno) {
-            alunos.set(aluno.cod, aluno)
-            return true;
+        if (alunos.containsKey(aluno.cod)){
+            if (aluno == alunos.get(aluno.cod) as Aluno) {
+                throw Exception("ESTE ALUNO JA ESTÁ MATRICULADO")
+            }
+            throw Exception("JA EXISTE UM ALUNO MATRICULADO COM ESTE COD")
         }
-        return false;
+        if (alunos.size >= qtMaxAluno) {
+           throw Exception("O CURSO JA ATINGIU O LIMITE MAXIMO DE ALUNOS")
+        }
+        alunos.set(aluno.cod, aluno)
+        return true;
     }
     fun excluirAluno(aluno: Aluno) {
         try {

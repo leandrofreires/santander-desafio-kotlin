@@ -1,3 +1,6 @@
+import com.sun.source.tree.TryTree
+import java.util.*
+
 class DigitalHouseManager(
         var alunos: MutableMap<Int, Aluno> = mutableMapOf(),
         var professores: MutableMap<Int, Professor> = mutableMapOf(),
@@ -87,9 +90,64 @@ class DigitalHouseManager(
     }
     fun registrarAluno(nome: String , sobrenome: String , codigoAluno: Int) {
         try {
+            if (alunos.containsKey(codigoAluno)){
+                throw Exception("O CODIGO DO ALUNO $codigoAluno ESTA EM USO!")
+            }
+            val aluno = Aluno(codigoAluno,nome,sobrenome);
+            alunos.set(codigoAluno,aluno)
+            println("ALUNO CADASTRADO COM SUCESSO")
 
+        } catch (e: Exception) {
+            println("NÃO FOI POSSIVEL CADASTRAR O ALUNO POIS: ${e.localizedMessage}")
+        }
+    }
+    fun matricularAluno(codigoAluno: Int, codigoCurso: Int) {
+        try {
+            if (!alunos.containsKey(codigoAluno)){
+                throw Exception("NÃO EXISTE NENHUM ALUNO CADASTRADO COM ESSE CODIGO")
+            }
+            if (!cursos.containsKey(codigoCurso)){
+                throw Exception("NÃO EXISTE NENHUM CURSO CADASTRADO COM ESSE CODIGO")
+            }
+            val aluno =  alunos.get(codigoAluno) as Aluno;
+            val curso = cursos.get(codigoCurso) as Curso;
+
+            curso.adicionarUmAluno(aluno);
+
+            val matricula = Matricula(aluno,curso, Date())
+            matriculas.set(matriculas.size + 1, matricula);
+            println("MATRICULA REALIZADA COM SUCESSO")
         }catch (e: Exception) {
+            println("NÃO FOI POSSIVEL MATRICULAR O ALUNO POIS: ${e.localizedMessage}")
+        }
+    }
+    fun alocarProfessores(codigoCurso: Int, codigoProfessorTitular: Int, codigoProfessorAdjunto: Int){
+        try {
+            if (!cursos.containsKey(codigoCurso)){
+                throw Exception("NÃO EXISTE NENHUM CURSO CADASTRADO COM ESSE CODIGO")
+            }
+            if (!professores.containsKey(codigoProfessorAdjunto)){
+                throw Exception("NÃO EXISTE NENHUM PROFESSOR CADASTRADO O CODIGO $codigoProfessorAdjunto")
+            }
+            if (!professores.containsKey(codigoProfessorTitular)){
+                throw Exception("NÃO EXISTE NENHUM PROFESSOR CADASTRADO O CODIGO $codigoProfessorTitular")
+            }
+            val curso = cursos.get(codigoCurso) as Curso;
 
+            try {
+                val professorAdjunto = professores.get(codigoProfessorAdjunto) as ProfessorAdjunto;
+                curso.professorAdjunto = professorAdjunto;
+            }catch(e: Exception) {
+                throw Exception("ESTE PROFESSOR NÃO É ADJUNTO")
+            }
+            try {
+                val professorTitular = professores.get(codigoProfessorTitular) as ProfessorTitular;
+                curso.professorTitular = professorTitular;
+            }catch (e: Exception) {
+                throw Exception("ESTE PROFESSOR NÃO É TITULAR")
+            }
+        }catch (e: Exception) {
+            println("NÃO FOI POSSIVEL ALOCAR OS PROFESSOR: ${e.localizedMessage}")
         }
     }
 }
