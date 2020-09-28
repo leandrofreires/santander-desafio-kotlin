@@ -26,6 +26,10 @@ OPÇÕES:
 9  -> LISTAR CURSOS
 10 -> ALOCAR PROFESSOR AO CURSO
 11 -> LISTAR PROFESSORES
+12 -> LISTAR MATRICULAS
+13 -> DESMATRICULAR ALUNO
+14 -> DETALHAR CURSO
+15 -> SAIR
 """);
     println("DIGITE UMA OPÇÃO:");
     var opcao = readLine()
@@ -45,6 +49,10 @@ OPÇÕES:
         "9" -> fluxoListarCursos()
         "10"-> fluxoAlocarProfessor()
         "11"-> fluxoListarProfessores()
+        "12"-> fluxoListarMatriculas()
+        "13"-> fluxoDesmatricularAluno()
+        "14"-> fluxoDetalharCurso()
+        "15"-> println("OBRIGADO POR USAR ESSA DEMONSTRAÇÃO")
         else -> {
             println("OPÇÃO INVALIDA");
             Thread.sleep(2000)
@@ -204,6 +212,48 @@ fun fluxoAlocarProfessor(){
     }
 
 }
+fun fluxoDesmatricularAluno() {
+    try {
+        listarMatriculas();
+        println("DIGITE O CODIGO DA MATRICULA:")
+        val codMatricula = readLine()?.toInt() as Int;
+        if (!digitalHouseManager.matriculas.containsKey(codMatricula)){
+            throw Exception("NÃO EXISTE NENHUMA MATRICULA COM ESSE COD")
+        }
+        val aluno = digitalHouseManager.matriculas.get(codMatricula)?.aluno as Aluno;
+        val curso = digitalHouseManager.matriculas.get(codMatricula)?.curso as Curso;
+
+        digitalHouseManager.cursos[curso.cod]?.excluirAluno(aluno)
+        digitalHouseManager.matriculas.remove(codMatricula);
+        println("ALUNO DESMATRICULADO COM SUCESSO!")
+        Thread.sleep(2000)
+        menu();
+    }catch (e: Exception) {
+        println("NÃO FOI POSSIVEL DESMATRICULAR ALUNO POIS: ${e.localizedMessage}")
+        Thread.sleep(2000)
+        menu();
+    }
+}
+fun fluxoListarMatriculas(){
+    listarMatriculas();
+    Thread.sleep(2000)
+    menu()
+}
+fun fluxoDetalharCurso() {
+    listarCursos();
+    println("DIGITE O CODIGO DO CURSO:")
+    val codCurso = readLine()?.toInt() as Int
+    val curso = digitalHouseManager.cursos.get(codCurso) as Curso
+    curso.let {
+        println("NOME: ${it.nome}");
+        println("PROFESSOR TITULAR: ${it.professorTitular ?: "PROFESSOR NÃO DESIGNADO"} ");
+        println("PROFESSOR ADJUNTO: ${it.professorAdjunto ?: "PROFESSOR NÃO DESIGNADO"}");
+        println("ALUNOS: ${it.alunos.toString()}")
+    }
+    Thread.sleep(2000)
+    menu()
+
+}
 fun listarAlunos() {
     if (digitalHouseManager.alunos.size == 0){
         println("NÃO HÁ ALUNOS CADASTRADOS")
@@ -231,6 +281,16 @@ fun listarProfessores(){
         println("${it.key} -> ${it.value.nome} ${it.value.sobrenome} " )
     }
 }
+fun listarMatriculas() {
+    if (digitalHouseManager.matriculas.size == 0){
+        println("NÃO HÁ MATRICULAS CADASTRADA")
+        return
+    }
+    digitalHouseManager.matriculas.forEach {
+        println("${it.key} -> ${it.value.aluno.nome + ' ' + it.value.aluno.sobrenome} NO CURSO ${it.value.curso.nome}" )
+    }
+}
+
 
 
 

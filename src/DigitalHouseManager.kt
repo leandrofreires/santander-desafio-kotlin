@@ -146,6 +146,7 @@ class DigitalHouseManager(
             }catch (e: Exception) {
                 throw Exception("ESTE PROFESSOR NÃO É TITULAR")
             }
+            println("PROFESSORES ALOCADOS COM SUCESSO!")
         }catch (e: Exception) {
             println("NÃO FOI POSSIVEL ALOCAR OS PROFESSOR: ${e.localizedMessage}")
         }
