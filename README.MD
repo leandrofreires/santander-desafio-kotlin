@@ -18,5 +18,4 @@
 <img alt="diagrama de classe do projeto" src="AULA%2013%20-%20DESAFIO%20KOTLIN%20-%20EXERCÍCIO.png">
 
 <h3>Conclusão</h3>
-<p>Apesar de já desenvolver em outras linguagens, tive um pouco de dificudade no começo com a sintaxe da linguagem,
-no entanto acredito ter comseguido um bom desempenho na resolução da solução proposta.</p>
+<p>Apesar de já desenvolver em outras linguagens, tive um pouco de dificuldade no começo com a sintaxe da linguagem, no entanto acredito ter conseguido um bom desempenho na resolução da solução proposta.</p>
