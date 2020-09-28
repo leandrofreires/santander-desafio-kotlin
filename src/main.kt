@@ -1,3 +1,5 @@
+import java.util.*
+
 //inicia o programa
 val digitalHouseManager = DigitalHouseManager();
 fun main() {
@@ -240,18 +242,32 @@ fun fluxoListarMatriculas(){
     menu()
 }
 fun fluxoDetalharCurso() {
-    listarCursos();
-    println("DIGITE O CODIGO DO CURSO:")
-    val codCurso = readLine()?.toInt() as Int
-    val curso = digitalHouseManager.cursos.get(codCurso) as Curso
-    curso.let {
-        println("NOME: ${it.nome}");
-        println("PROFESSOR TITULAR: ${it.professorTitular ?: "PROFESSOR NÃO DESIGNADO"} ");
-        println("PROFESSOR ADJUNTO: ${it.professorAdjunto ?: "PROFESSOR NÃO DESIGNADO"}");
-        println("ALUNOS: ${it.alunos.toString()}")
+    try {
+        listarCursos();
+        if (digitalHouseManager.cursos.size == 0){
+            throw Exception("NÃO A CURSOS CADASTRADOS")
+        }
+        println("DIGITE O CODIGO DO CURSO:")
+        val codCurso = readLine()?.toInt() as Int
+
+        if (!digitalHouseManager.cursos.containsKey(codCurso)) {
+            throw Exception("NÃO A CURSOS CADASTRADOS COM ESSE CODIGO!")
+        }
+        val curso = digitalHouseManager.cursos.get(codCurso) as Curso
+        curso.let {
+            println("NOME: ${it.nome}");
+            println("PROFESSOR TITULAR: ${it.professorTitular ?: "PROFESSOR NÃO DESIGNADO"} ");
+            println("PROFESSOR ADJUNTO: ${it.professorAdjunto ?: "PROFESSOR NÃO DESIGNADO"}");
+            println("ALUNOS: ${it.alunos.toString()}")
+        }
+        Thread.sleep(2000)
+        menu()
+    }catch (e: Exception) {
+        println("NÃO FOI POSSIVEL DETALHAR POIS: ${e.localizedMessage}")
+        Thread.sleep(2000)
+        menu()
     }
-    Thread.sleep(2000)
-    menu()
+
 
 }
 fun listarAlunos() {
