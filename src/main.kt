@@ -176,11 +176,19 @@ fun fluxoListarCursos(){
     menu()
 }
 fun listarAlunos() {
+    if (digitalHouseManager.alunos.size == 0){
+        println("NÃO HÁ ALUNOS CADASTRADOS")
+        return
+    }
     digitalHouseManager.alunos.forEach {
         println("${it.key} -> ${it.value.nome}")
     }
 }
 fun listarCursos(){
+    if (digitalHouseManager.cursos.size == 0){
+        println("NÃO HÁ CURSOS CADASTRADOS")
+        return
+    }
     digitalHouseManager.cursos.forEach {
         println("${it.key} -> ${it.value.nome}" )
     }
