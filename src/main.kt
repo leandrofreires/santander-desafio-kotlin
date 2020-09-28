@@ -15,15 +15,17 @@ fun menu() {
        |___/
 
 OPÇÕES:
-1 -> REGISTRAR CURSO
-2 -> EXCLUIR CURSO
-3 -> REGISTRAR PROFESSOR ADJUNTO
-4 -> REGISTRAR PROFESSOR TITULAR
-5 -> EXCLUIR PROFESSOR
-6 -> REGISTRAR ALUNO
-7 -> MATRICULAR ALUNO
-8 -> LISTAR ALUNOS CADASTRADOS
-9 -> LISTAR CURSOS
+1  -> REGISTRAR CURSO
+2  -> EXCLUIR CURSO
+3  -> REGISTRAR PROFESSOR ADJUNTO
+4  -> REGISTRAR PROFESSOR TITULAR
+5  -> EXCLUIR PROFESSOR
+6  -> REGISTRAR ALUNO
+7  -> MATRICULAR ALUNO
+8  -> LISTAR ALUNOS CADASTRADOS
+9  -> LISTAR CURSOS
+10 -> ALOCAR PROFESSOR AO CURSO
+11 -> LISTAR PROFESSORES
 """);
     println("DIGITE UMA OPÇÃO:");
     var opcao = readLine()
@@ -41,6 +43,8 @@ OPÇÕES:
         "7" -> fluxoMatricularAluno()
         "8" -> fluxoListarAlunos()
         "9" -> fluxoListarCursos()
+        "10"-> fluxoAlocarProfessor()
+        "11"-> fluxoListarProfessores()
         else -> {
             println("OPÇÃO INVALIDA");
             Thread.sleep(2000)
@@ -175,6 +179,31 @@ fun fluxoListarCursos(){
     Thread.sleep(2000)
     menu()
 }
+fun fluxoListarProfessores(){
+    listarProfessores()
+    Thread.sleep(2000)
+    menu()
+}
+fun fluxoAlocarProfessor(){
+    try {
+        listarCursos();
+        println("DIGITE O COD DO CURSO:")
+        val codCurso = readLine()?.toInt() as Int;
+        listarProfessores();
+        println("DIGITE O COD DO PROFESSOR TITUTLAR:")
+        val codProfessorTitular = readLine()?.toInt() as Int;
+        println("DIGITE O COD DO PROFESSOR ADJUNTO:")
+        val codProfessorAdjunto= readLine()?.toInt() as Int;
+        digitalHouseManager.alocarProfessores(codCurso,codProfessorTitular,codProfessorAdjunto)
+        Thread.sleep(2000)
+        menu();
+    }catch (e: Exception){
+        println("VOCE ENTROU COM UM DADO INVALIDO: ${e.localizedMessage}")
+        Thread.sleep(2000)
+        menu();
+    }
+
+}
 fun listarAlunos() {
     if (digitalHouseManager.alunos.size == 0){
         println("NÃO HÁ ALUNOS CADASTRADOS")
@@ -191,6 +220,15 @@ fun listarCursos(){
     }
     digitalHouseManager.cursos.forEach {
         println("${it.key} -> ${it.value.nome}" )
+    }
+}
+fun listarProfessores(){
+    if (digitalHouseManager.professores.size == 0){
+        println("NÃO HÁ PROFESSORES CADASTRADOS")
+        return
+    }
+    digitalHouseManager.professores.forEach {
+        println("${it.key} -> ${it.value.nome} ${it.value.sobrenome} " )
     }
 }
 
