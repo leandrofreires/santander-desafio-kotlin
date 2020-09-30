@@ -82,6 +82,7 @@ fun fluxoRegistrarCurso() {
 }
 fun fluxoExcluirCurso() {
     try {
+        listarCursos()
         println("DIGITE O COD DO CURSO QUE QUER EXCLUIR:")
         val cod = readLine()?.toInt() as Int;
         digitalHouseManager.excluirCurso(cod)
@@ -133,6 +134,7 @@ fun fluxoRegistrarProfessorTitular() {
 }
 fun fluxoExcluirProfessor(){
     try {
+        listarProfessores()
         println("DIGITE O COD DO PROFESSOR QUE QUER EXCLUIR:")
         val cod = readLine()?.toInt() as Int;
         digitalHouseManager.excluirProfessor(cod)
